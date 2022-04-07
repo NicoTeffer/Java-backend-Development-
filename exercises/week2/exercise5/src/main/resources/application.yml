@@ -1,0 +1,10 @@
+advanced:
+  naturalnumber: 5
+  decimalnumber: 5.5
+  message: This is a basic message(advanced YML)
+  choice: false
+  several:
+    naturalnumbers: 5, 10, 15, 20, 25
+    decimalnumbers: 2.2, 4.4, 6.6, 8.8, 10.10
+    words: These, are, several, basic, words, (advanced YAML)
+    choices: false, true, true, false

@@ -1,0 +1,12 @@
+game:
+  moves:
+    - name: rock
+      defeats: scissors, lizard
+    - name: scissors
+      defeats: paper, lizard
+    - name: paper
+      defeats: rock, spock
+    - name: lizard
+      defeats: spock, paper
+    - name: spock
+      defeats: scissors, rock
