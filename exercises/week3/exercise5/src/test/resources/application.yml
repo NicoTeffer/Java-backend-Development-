@@ -1,0 +1,12 @@
+music:
+  songs:
+    - name: 1
+      genre: A
+    - name: 2
+      genre: A
+    - name: 3
+      genre: B
+    - name: 4
+      genre: B
+    - name: 5
+      genre: C
