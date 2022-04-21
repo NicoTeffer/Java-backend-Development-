@@ -1,0 +1,10 @@
+skills:
+  developers:
+    - name: 1
+      skills: A, B, C
+    - name: 2
+      skills: D, E
+    - name: 3
+      skills: F, C, B
+    - name: 4
+      skills: G, F, A
