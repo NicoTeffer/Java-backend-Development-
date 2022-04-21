@@ -2,15 +2,16 @@ package io.everyonecodes.drhouse_admission;
 
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class Admission {
+    private final UUIDProvider uuidProvider;
 
-    private UUIDProvider uuidProvider;
+    public Admission(UUIDProvider uuidProvider) {
+        this.uuidProvider = uuidProvider;
+    }
 
-    public Patient admit(Patient patient){
-        patient.setUuid(UUID.randomUUID().toString());
+    public Patient admit(Patient patient) {
+        uuidProvider.provideUUID(patient);
         return patient;
     }
 }

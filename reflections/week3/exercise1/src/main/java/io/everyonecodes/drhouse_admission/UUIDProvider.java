@@ -2,30 +2,28 @@ package io.everyonecodes.drhouse_admission;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UUIDProvider {
 
-    private final List<String> cache;
-
-    public UUIDProvider(List<String> cache) {
-        this.cache = cache;
-    }
-
-    // AFTER STARTING 3 Times over because INTELLIJ somehow removed maven dependencies I could not finish this part here anymore
-    // since I had to upload this from my PC to my LAPTOP to make the GitHub push, but I hope it shows that i at least tried.
-    // This was a horrible experience with INTELLIJ, I might need to rollback too *sigh*
+    private final Map<String, String> cache = new HashMap<>();
 
     public void provideUUID(Patient patient) {
+        String name = patient.getName();
+        String uuid = cache.getOrDefault(name, UUID.randomUUID().toString());
+        patient.setUuid(uuid);
+        cache.putIfAbsent(name, uuid);
     }
 
-    public List<String> getCacheSnapshot(){
-        return new ArrayList<>(cache);
+    public Map<String, String> getCacheSnapshot() {
+        return new HashMap<>(cache);
     }
 
-    public String findUUID(String name){
-       return "";
+    public Optional<String> findUUID(String patientName) {
+        return Optional.ofNullable(cache.getOrDefault(patientName, null));
     }
 }
