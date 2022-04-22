@@ -16,7 +16,7 @@ public class PatientEndpoint {
     }
 
     @PostMapping("/patients")
-    String post(@RequestBody Patient patient) {
+    Patient post(@RequestBody Patient patient) {
         return diagnosisRoom.diagnose(patient);
     }
 }

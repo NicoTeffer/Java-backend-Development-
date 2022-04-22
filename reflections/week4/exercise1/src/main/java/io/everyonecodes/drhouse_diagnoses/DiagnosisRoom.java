@@ -11,10 +11,11 @@ public class DiagnosisRoom {
         this.drHouse = drHouse;
     }
 
-    public String diagnose(Patient patient) {
+    public Patient diagnose(Patient patient) {
         var symptom = patient.getSymptoms();
         var diagnoseDoc = drHouse.diagnose(patient);
+        patient.setDiagnosis(diagnoseDoc);
         System.out.println("Patient with the symptoms: " + symptom + "; " + "diagnosed with: " + diagnoseDoc);
-        return diagnoseDoc;
+        return patient;
     }
 }
