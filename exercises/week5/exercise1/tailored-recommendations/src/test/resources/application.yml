@@ -1,0 +1,13 @@
+server:
+  port: 9001
+
+recommendation:
+  tailoredrecommendations:
+    - userUuid: 1
+      movie:
+        title: a
+        synopsis: plota
+    - userUuid: 2
+      movie:
+        title: b
+        synopsis: plotb

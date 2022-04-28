@@ -1,0 +1,10 @@
+server:
+  port: 9002
+movies:
+  hotrightnow:
+    - title: a
+      synopsis: plota
+    - title: b
+      synopsis: plotb
+    - title: c
+      synopsis: plotc

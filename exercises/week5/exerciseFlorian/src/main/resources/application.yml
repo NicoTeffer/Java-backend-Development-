@@ -1,0 +1,20 @@
+server:
+  port: 9009
+translatedtexts:
+  translations:
+    - language: english
+      text: hello world
+    - language: german
+      text: hallo welt
+    - language: french
+      text: bonjour monde
+    - language: spanish
+      text: hola mundo
+    - language: italian
+      text: ciao mondo
+    - language: japanese
+      text: kon'nichiwa sekai
+    - language: hungarian
+      text: helló világ
+    - language: chinese
+      text: nǐ hǎo shìjiè
