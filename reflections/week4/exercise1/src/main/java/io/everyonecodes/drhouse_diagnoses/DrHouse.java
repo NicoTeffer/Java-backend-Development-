@@ -15,14 +15,11 @@ public class DrHouse {
 
     public String diagnose(Patient patient) {
         var symptom = patient.getSymptoms();
-        var diagnosis = "";
         for (Diagnosis diagnose : diagnoses) {
             if (diagnose.getSymptoms().equals(symptom)) {
                 return diagnose.getName();
-            } else {
-                diagnosis = "lupus";
             }
         }
-        return diagnosis;
+        return "lupus";
     }
 }
