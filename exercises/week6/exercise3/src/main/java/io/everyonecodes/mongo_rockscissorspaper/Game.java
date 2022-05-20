@@ -1,5 +1,6 @@
-package io.everyonecodes.rock_scissors_paper;
+package io.everyonecodes.mongo_rockscissorspaper;
 
+import io.everyonecodes.mongo_rockscissorspaper.mongodb.GameResultManager;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,10 +10,13 @@ public class Game {
     private final Player player2;
     private final Judge judge;
 
-    public Game(Player player1, Player player2, Judge judge) {
+    private final GameResultManager gameResultManager;
+
+    public Game(Player player1, Player player2, Judge judge, GameResultManager gameResultManager) {
         this.player1 = player1;
         this.player2 = player2;
         this.judge = judge;
+        this.gameResultManager = gameResultManager;
     }
 
     public void play() {
@@ -30,6 +34,7 @@ public class Game {
         System.out.println("Player 2 chose: " + move2.getName());
         String message = judge.judge(move1, move2);
         System.out.println(message);
+        gameResultManager.setStatistic(message);
     }
 
     private boolean askPlayers() {

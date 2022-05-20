@@ -1,0 +1,14 @@
+game:
+  moves:
+    - name: Rock
+      defeats: Scissors
+    - name: Scissors
+      defeats: Paper
+    - name: Paper
+      defeats: Rock
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/rock-scissors-paper
+mongo:
+  statistic: "Game statistic: "
