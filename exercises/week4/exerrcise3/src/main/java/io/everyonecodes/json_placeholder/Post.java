@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Post {
 
-    // ⭔	Post. Has title and content as String properties, and user and identifier as int properties.
+    //TODO: Post. Has title and content as String properties, and user and identifier as int properties.
 
     private String title, content;
     private int user, identifier;

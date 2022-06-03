@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class PostDTO {
 
-    // ⭔	PostDTO. Has title and body as String properties, and userId and id as int properties.
+    //TODO: PostDTO. Has title and body as String properties, and userId and id as int properties.
     private int id, userId;
     private String title, body;
 

@@ -1,0 +1,20 @@
+server:
+  port: 9000
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/qpl-profiler
+
+test:
+  url: /profiler
+  update: /totalEarnings
+  id: id
+  newEarning: 54321
+
+profiler:
+  messages:
+    newPlayerSaved: New Player has been saved!
+    totalEarningsUpdated: Total earnings have been updated!
+    delete: Player has been deleted!
+    notFound: Player not found!

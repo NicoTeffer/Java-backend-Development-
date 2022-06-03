@@ -68,9 +68,8 @@ class ToDosEndpointTest {
     void deleteById() {
         String url = "/todos";
         String id = "test";
-        ToDo toDo = new ToDo(id, "Test", false);
 
-        testRestTemplate.delete(url + "/" + id, Void.class);
+        testRestTemplate.delete(url + "/" + id);
 
         Mockito.verify(toDoManager).deleteTodo(id);
     }

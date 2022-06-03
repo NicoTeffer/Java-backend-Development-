@@ -32,13 +32,16 @@ public class ToDoManager {
 
     //TODO: PUT to “/todos/{id}/done” -> marks the ToDo with the matching id as done
     // and returns it, if it exists.
-    public void markTodoAsDone(String id) {
-        if (ifExists(id)) {
-            var todo = getTodoById(id).get();
-            todo.setDone(true);
-            toDoRepository.save(todo);
+    public Optional<ToDo> markTodoAsDone(String id) {
+        Optional<ToDo> optionalToDo = toDoRepository.findById(id);
+        if (optionalToDo.isEmpty()) {
+            return Optional.empty();
         }
+        ToDo toDo = optionalToDo.get();
+        toDo.setDone(true);
+        toDoRepository.save(toDo);
         System.out.println("Todo has been marked as 'done'!");
+        return Optional.of(toDo);
     }
 
     //TODO: DELETE to “/todos/{id}” -> deletes the ToDo that matches that id.
