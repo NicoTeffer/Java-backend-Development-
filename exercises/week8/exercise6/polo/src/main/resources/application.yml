@@ -1,0 +1,14 @@
+server:
+  port: 9001
+
+marco-polo:
+  marco-polo-users:
+    - username: marcopolo
+      password: marcopolo
+      authorities: ROLE_MARCO
+    - username: polo
+      password: marco
+      authorities: ROLE_POLO
+    - username: admin
+      password: admin
+      authorities: ROLE_ADMIN

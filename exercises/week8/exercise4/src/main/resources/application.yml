@@ -1,0 +1,24 @@
+server:
+  port: 8500
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/small-business
+
+small-business:
+  product:
+    type:
+      premium: premium
+
+  small-business-users:
+    - username: owner
+      password: owner
+      authorities: ROLE_OWNER
+    - username: premium
+      password: premium
+      authorities: ROLE_PREMIUM
+
+  interactions:
+    amount: 100
+    delay: 5000

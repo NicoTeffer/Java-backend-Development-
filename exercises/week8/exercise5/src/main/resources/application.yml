@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    user:
+      name: spaceballs
+      password: 12345
+
+System:
+  message: "It's never too late!"
