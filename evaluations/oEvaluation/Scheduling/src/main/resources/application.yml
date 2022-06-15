@@ -1,0 +1,10 @@
+spring:
+  task:
+    scheduling:
+      pool:
+        size: 5
+
+messages:
+  message1: "Fixed delay message every 5 seconds."
+  message2: "Fixed rate message every 2 seconds."
+  message3: "Cron message every interval."
