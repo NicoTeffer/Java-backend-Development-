@@ -1,9 +1,11 @@
 package io.everyonecodes.rides;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 public class Driver {
@@ -13,34 +15,25 @@ public class Driver {
     private Long id;
 
     @Column(unique = true)
-    @NotEmpty
     private String username;
 
-    @NotEmpty
-    private String carType;
+    private String vehicle;
 
-    @OneToMany
-    private List<Rides> ridesList;
+    @OneToMany(fetch = EAGER)
+    private Set<Ride> rides = new HashSet<>();
 
     public Driver() {
     }
 
-    public Driver(@NotEmpty String username, @NotEmpty String carType) {
+    public Driver(String username, String vehicle) {
         this.username = username;
-        this.carType = carType;
+        this.vehicle = vehicle;
     }
 
-    public Driver(@NotEmpty String username, @NotEmpty String carType, List<Rides> ridesList) {
+    public Driver(String username, String vehicle, Set<Ride> rides) {
         this.username = username;
-        this.carType = carType;
-        this.ridesList = ridesList;
-    }
-
-    public Driver(Long id, @NotEmpty String username, @NotEmpty String carType, List<Rides> ridesList) {
-        this.id = id;
-        this.username = username;
-        this.carType = carType;
-        this.ridesList = ridesList;
+        this.vehicle = vehicle;
+        this.rides = rides;
     }
 
     public Long getId() {
@@ -59,20 +52,20 @@ public class Driver {
         this.username = username;
     }
 
-    public String getCarType() {
-        return carType;
+    public String getVehicle() {
+        return vehicle;
     }
 
-    public void setCarType(String carType) {
-        this.carType = carType;
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public List<Rides> getRidesList() {
-        return ridesList;
+    public Set<Ride> getRides() {
+        return rides;
     }
 
-    public void setRidesList(List<Rides> ridesList) {
-        this.ridesList = ridesList;
+    public void setRides(Set<Ride> rides) {
+        this.rides = rides;
     }
 
     @Override
@@ -80,21 +73,11 @@ public class Driver {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Driver driver = (Driver) o;
-        return Objects.equals(id, driver.id) && Objects.equals(username, driver.username) && Objects.equals(carType, driver.carType) && Objects.equals(ridesList, driver.ridesList);
+        return Objects.equals(id, driver.id) && Objects.equals(username, driver.username) && Objects.equals(vehicle, driver.vehicle) && Objects.equals(rides, driver.rides);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, carType, ridesList);
-    }
-
-    @Override
-    public String toString() {
-        return "Driver{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", carType='" + carType + '\'' +
-                ", ridesList=" + ridesList +
-                '}';
+        return Objects.hash(id, username, vehicle, rides);
     }
 }

@@ -7,11 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-public class DriverPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
     private final Driver driver;
 
-    public DriverPrincipal(Driver driver) {
+    public UserPrincipal(Driver driver) {
         this.driver = driver;
     }
 

@@ -5,3 +5,6 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost/drivers
+
+drivers:
+  authorities: ROLE_DRIVER

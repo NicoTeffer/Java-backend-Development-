@@ -1,5 +1,6 @@
 package io.everyonecodes.drivers;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,35 +11,51 @@ import java.util.Set;
 public class DriverService {
 
     private final DriverRepository driverRepository;
-
     private final PasswordEncoder passwordEncoder;
+    private final Set<String> authorities;
 
-    public DriverService(DriverRepository driverRepository, PasswordEncoder passwordEncoder) {
+    public DriverService(DriverRepository driverRepository,
+                         PasswordEncoder passwordEncoder,
+                         @Value("${drivers.authorities}") Set<String> authorities
+    ) {
         this.driverRepository = driverRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorities = authorities;
     }
 
-    public Driver makeDriver(Driver driver) {
-        String driverName = driver.getUsername();
-        String driverPassword = driver.getPassword();
-        Optional<Driver> existingUser;
-        if (!driverRepository.existsByUsername(driverName)) {
-            String password = passwordEncoder.encode(driverPassword);
-            return new Driver(
-                    driverName, password, false, driver.getCarType(), Set.of("ROLE_DRIVER")
-            );
+    public Driver save(Driver driver) {
+        return driverRepository.findOneByUsername(driver.getUsername()).orElseGet(
+                () -> create(driver));
+    }
+
+    private Driver create(Driver driver) {
+        String encoded = passwordEncoder.encode(driver.getPassword());
+        driver.setPassword(encoded);
+        driver.setAuthorities(authorities);
+        return driverRepository.save(driver);
+    }
+
+    public Optional<Driver> findOneBy(String id) {
+        return driverRepository.findById(id);
+    }
+
+    public void tagAsAvailable(String id) {
+        Optional<Driver> oDriver = driverRepository.findById(id);
+        if (oDriver.isEmpty()) {
+            return;
         }
-        existingUser = driverRepository.findOneByUsername(driverName);
-        return existingUser.get();
+        Driver driver = oDriver.get();
+        driver.setAvailable(true);
+        driverRepository.save(driver);
     }
 
-    public void makeDriverAvailable(String id) {
-        var driver = driverRepository.findById(id);
-        driver.ifPresent(value -> value.setAvailable(true));
-    }
-
-    public void makeDriverNotAvailable(String id) {
-        var driver = driverRepository.findById(id);
-        driver.ifPresent(value -> value.setAvailable(false));
+    public void tagAsUnavailable(String id) {
+        Optional<Driver> oDriver = driverRepository.findById(id);
+        if (oDriver.isEmpty()) {
+            return;
+        }
+        Driver driver = oDriver.get();
+        driver.setAvailable(false);
+        driverRepository.save(driver);
     }
 }

@@ -1,5 +1,6 @@
 package io.everyonecodes.rides;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -15,12 +16,21 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@ConfigurationProperties("rides")
 public class SecurityConfiguration {
 
+    private List<RidesUser> ridesUsers;
+
+    void setRidesUsers(List<RidesUser> ridesUsers) {
+        this.ridesUsers = ridesUsers;
+    }
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .anyRequest().authenticated()
@@ -33,20 +43,22 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        UserDetails uberadmin = User.withUsername("uberadmin")
-                .password(encoder.encode("uberadmin"))
-                .authorities("ROLE_ADMIN")
-                .build();
-        UserDetails uberapp = User.withUsername("uberapp")
-                .password(encoder.encode("uberapp"))
-                .authorities("ROLE_APP")
-                .build();
-        List<UserDetails> users = List.of(uberadmin, uberapp);
+        List<UserDetails> users = ridesUsers.stream()
+                .map(ridesUser -> createUserDetails(encoder, ridesUser))
+                .collect(toList());
         return new InMemoryUserDetailsManager(users);
+    }
+
+    private UserDetails createUserDetails(PasswordEncoder encoder, RidesUser ridesUser) {
+        return User.withUsername(ridesUser.getUsername())
+                .password(encoder.encode(ridesUser.getPassword()))
+                .authorities(ridesUser.getAuthorities())
+                .build();
     }
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

@@ -2,6 +2,7 @@ package io.everyonecodes.drivers;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,9 +18,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/drivers").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -39,7 +41,7 @@ public class SecurityConfiguration {
     @Bean
     UserDetailsService userDetailsService(DriverRepository driverRepository) {
         return username -> driverRepository.findOneByUsername(username)
-                .map(DriverPrincipal::new)
+                .map(UserPrincipal::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 

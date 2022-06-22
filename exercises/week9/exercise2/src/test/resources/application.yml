@@ -1,0 +1,32 @@
+server:
+  port: 9200
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/rides?useSSL=false
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+rides:
+  rides-users:
+    - username: testadmin
+      password: testadmin
+      authorities: ROLE_TEST
+    - username: testapp
+      password: testapp
+      authorities: ROLE_TESTAPP
+
+driver:
+  username: username
+  vehicle: car
+
+ride:
+  customer: test
+  distance: 12
+  price: 12
+
+random:
+  longId: 12L
